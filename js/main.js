@@ -26,7 +26,7 @@ function aplicarDescuento(cantidad, precioUnitario) {
 // Preguntar cantidad de clientes
 const numClientes = parseInt(prompt("¿Cuántas personas quieren realizar un pedido?:"));
 
-for (let i = 0; i < numClientes; i++) {                                         
+for (let i = 0; i < numClientes; i++) {
     let estatura;
 
     do {
@@ -46,19 +46,7 @@ for (let i = 0; i < numClientes; i++) {
             console.log("La estatura ingresada es incorrecta. Por favor, inténtelo de nuevo.");
         }
 
-    }} while (estatura < 130 || estatura > 230); {function calcularTalle(estatura) {
-    let talleS = "S";
-    let talleM = "M";
-    let talleL = "L";
-
-    if (estatura < 170) {
-        return talleS;
-    } else if (estatura >= 170 && estatura < 185) {
-        return talleM;
-    } else {
-        return talleL;
-    }
-}}
+    } while (estatura < 130 || estatura > 230);
 
     // Calcular talle de la/s remeras
     let talleRemera = calcularTalle(estatura);
@@ -67,7 +55,7 @@ for (let i = 0; i < numClientes; i++) {
     let totalRemeras = parseInt(prompt("¿Cuántas remeras desea comprar?"));
 
     // Precio por remera
-    const precioUnitario = 20; 
+    const precioUnitario = 20; // Puedes ajustar este valor según tus necesidades
 
     // Precio total
     let precioTotal = aplicarDescuento(totalRemeras, precioUnitario);
@@ -76,4 +64,4 @@ for (let i = 0; i < numClientes; i++) {
     console.log(`Talle de remera: ${talleRemera}`);
     console.log(`Cantidad de remeras: ${totalRemeras}`);
     console.log(`Precio total: $${precioTotal.toFixed(2)}`);
-
+}
