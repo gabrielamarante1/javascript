@@ -65,3 +65,7 @@ for (let i = 0; i < numClientes; i++) {
     console.log(`Cantidad de remeras: ${totalRemeras}`);
     console.log(`Precio total: $${precioTotal.toFixed(2)}`);
 }
+
+
+
+
