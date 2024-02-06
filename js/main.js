@@ -46,7 +46,7 @@ for (let i = 0; i < numClientes; i++) {
             console.log("La estatura ingresada es incorrecta. Por favor, inténtelo de nuevo.");
         }
 
-    } while (estatura < 130 || estatura > 230);}
+    } while (estatura < 130 || estatura > 230);
 
     // Calcular talle de la/s remeras
     let talleRemera = calcularTalle(estatura);
