@@ -1,71 +1,98 @@
-function calcularTalle(estatura) {
-    let talleS = "S";
-    let talleM = "M";
-    let talleL = "L";
-
-    if (estatura < 170) {
-        return talleS;
-    } else if (estatura >= 170 && estatura < 185) {
-        return talleM;
-    } else {
-        return talleL;
-    }
+// Objeto para representar una remera
+function Remera(color, talle, cantidad) {
+    this.color = color;
+    this.talle = talle;
+    this.cantidad = cantidad;
 }
 
-function aplicarDescuento(cantidad, precioUnitario) {
-    const descuentoPorCantidad = 0.1; // 10% de descuento para 2 o más remeras
-    let precioTotal = cantidad * precioUnitario;
+// Función para calcular el precio total de las remeras
+function calcularPrecioTotal(remeras) {
+    let precioTotal = 0;
+    let cantidadTotal = 0;
 
-    if (cantidad >= 2) {
-        precioTotal -= precioTotal * descuentoPorCantidad;
-    }
+    remeras.forEach(function(remera) {
+        let precioUnitario = 800;
 
-    return precioTotal;
-}
-
-// Preguntar cantidad de clientes
-const numClientes = parseInt(prompt("¿Cuántas personas quieren realizar un pedido?:"));
-
-for (let i = 0; i < numClientes; i++) {
-    let estatura;
-
-    do {
-        // Preguntar información
-        let nombre = prompt("Ingrese su nombre:");
-        let apellido = prompt("Ingrese su apellido:");
-        let correo = prompt("Ingrese su correo electrónico:");
-
-        // Mostrar mensaje de bienvenida
-        console.log(`Bienvenido ${nombre} ${apellido}!`);
-
-        // Preguntar estatura
-        estatura = parseFloat(prompt("Ingrese su estatura en centímetros:"));
-
-        // Validar la estatura
-        if (estatura < 130 || estatura > 230) {
-            console.log("La estatura ingresada es incorrecta. Por favor, inténtelo de nuevo.");
+        // Aplicar descuentos según la cantidad
+        if (remera.cantidad === 2 || remera.cantidad === 3) {
+            precioUnitario -= 100;
+        } else if (remera.cantidad >= 4) {
+            precioUnitario -= 250;
         }
 
-    } while (estatura < 130 || estatura > 230);
+        precioTotal += precioUnitario * remera.cantidad;
+        cantidadTotal += remera.cantidad;
+    });
 
-    // Calcular talle de la/s remeras
-    let talleRemera = calcularTalle(estatura);
-
-    // Preguntar cantidad de remeras
-    let totalRemeras = parseInt(prompt("¿Cuántas remeras desea comprar?"));
-
-    // Precio por remera
-    const precioUnitario = 20; // Puedes ajustar este valor según tus necesidades
-
-    // Precio total
-    let precioTotal = aplicarDescuento(totalRemeras, precioUnitario);
-
-    // Resultados
-    console.log(`Talle de remera: ${talleRemera}`);
-    console.log(`Cantidad de remeras: ${totalRemeras}`);
-    console.log(`Precio total: $${precioTotal.toFixed(2)}`);
+    return { precioTotal, cantidadTotal };
 }
 
+// Función para determinar el talle según la estatura
+function determinarTalle(estatura) {
+    if (estatura < 173) {
+        return "S";
+    } else if (estatura >= 173 && estatura <= 185) {
+        return "M";
+    } else {
+        return "L";
+    }
+}
 
+// Función principal del programa
+function ventaRemeras() {
+    let nombreUsuario = prompt("Bienvenido/a a nuestra tienda. Por favor, introduce tu nombre:");
+    if (!nombreUsuario) {
+        alert("Nombre no válido.");
+        return;
+    }
 
+    let colores = ["blanco", "negro", "beige", "verde"];
 
+    let estatura = parseInt(prompt("Hola, " + nombreUsuario + ". Para ofrecerte la talla adecuada, ¿podrías indicarnos tu estatura en centímetros?"));
+    if (isNaN(estatura) || estatura <= 0) {
+        alert("La estatura ingresada no es válida.");
+        return;
+    }
+
+    let talle = determinarTalle(estatura);
+
+    let remeras = [];
+    
+    while (true) {
+        let mensajeColores = "Seleccione el color de las remeras que desea comprar:\n";
+        colores.forEach(function(color, index) {
+            mensajeColores += (index + 1) + ". " + color + "\n";
+        });
+        
+        let seleccionColor = parseInt(prompt(mensajeColores + "(Ingrese el número correspondiente)"));
+
+        if (isNaN(seleccionColor) || seleccionColor < 1 || seleccionColor > colores.length) {
+            alert("La selección de color no es válida.");
+            return;
+        }
+
+        let colorSeleccionado = colores[seleccionColor - 1];
+
+        let cantidad = parseInt(prompt("Ingrese la cantidad de remeras de color " + colorSeleccionado + " y talle " + talle + " que desea comprar:"));
+
+        if (isNaN(cantidad) || cantidad <= 0) {
+            alert("La cantidad ingresada no es válida.");
+            return;
+        }
+
+        remeras.push(new Remera(colorSeleccionado, talle, cantidad));
+
+        let { precioTotal, cantidadTotal } = calcularPrecioTotal(remeras);
+
+        let continuar = prompt("Compra exitosa:\nCantidad total de remeras: " + cantidadTotal + "\nPrecio total: $" + precioTotal.toFixed(2) + "\n\n¿Desea seleccionar otro color? (Sí/No)").toLowerCase();
+
+        if (continuar !== 'sí' && continuar !== 'si') {
+            break;
+        }
+    }
+
+    alert("Gracias por su compra, " + nombreUsuario + ".");
+}
+
+// Ejecutar la función principal
+ventaRemeras();
