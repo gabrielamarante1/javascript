@@ -1,11 +1,11 @@
-// Objeto para representar una remera
+
 function Remera(color, talle, cantidad) {
     this.color = color;
     this.talle = talle;
     this.cantidad = cantidad;
 }
 
-// Función para calcular el precio total de las remeras
+
 function calcularPrecioTotal(remeras) {
     let precioTotal = 0;
     let cantidadTotal = 0;
@@ -13,7 +13,7 @@ function calcularPrecioTotal(remeras) {
     remeras.forEach(function(remera) {
         let precioUnitario = 800;
 
-        // Aplicar descuentos según la cantidad
+        
         if (remera.cantidad === 2 || remera.cantidad === 3) {
             precioUnitario -= 100;
         } else if (remera.cantidad >= 4) {
@@ -27,7 +27,7 @@ function calcularPrecioTotal(remeras) {
     return { precioTotal, cantidadTotal };
 }
 
-// Función para determinar el talle según la estatura
+
 function determinarTalle(estatura) {
     if (estatura < 173) {
         return "S";
@@ -38,7 +38,7 @@ function determinarTalle(estatura) {
     }
 }
 
-// Función principal del programa
+
 function ventaRemeras() {
     let nombreUsuario = prompt("Bienvenido/a a nuestra tienda. Por favor, introduce tu nombre:");
     if (!nombreUsuario) {
@@ -94,5 +94,5 @@ function ventaRemeras() {
     alert("Gracias por su compra, " + nombreUsuario + ".");
 }
 
-// Ejecutar la función principal
+
 ventaRemeras();
