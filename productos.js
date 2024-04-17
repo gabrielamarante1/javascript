@@ -1,30 +1,8 @@
-const productos = [
-    {
-        id: 1,
-        nombre: "Gorra visera roja",
-        precio: 35,
-        img: "img/gorra1.webp",
-        cantidad: 1,
-    },
-    {
-        id: 2,
-        nombre: "Gorra visera negra",
-        precio: 35,
-        img: "img/gorra2.webp",
-       cantidad: 1,
-    },
-    {
-        id: 3,
-        nombre: "Gorra visera azul",
-        precio: 45,
-        img: "img/gorra3.webp",
-        cantidad: 1,
-    },
-    {
-        id: 4,
-        nombre: "Gorra visera marron",
-        precio: 40,
-        img: "img/gorra4.webp",
-        cantidad: 1,
-    }
-]
+fetch("./db/db.json")
+.then((res) => res.json())
+.then((data) => {
+    const { productos } = data;
+    console.log(data.productos);
+    console.log(productos);
+    renderproductos(productos)
+});
